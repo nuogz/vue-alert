@@ -8,15 +8,15 @@
 		}"
 		:color="attrColorTop"
 	>
-		<p-title class="block w-full h-6 nosel"
+		<p-title
 			:style="{ cursor: moving ? 'move' : 'default' }"
 			@mousemove="onMouseMove" @mousedown="onMoveStart" @mouseup="onMoveEnd" @mouseout="onMoveEnd"
 		>
-			<p-title-text class="inblock elli text-lg leading-6 px-1">{{title || '提示'}}</p-title-text>
+			<p-title-text>{{title || '提示'}}</p-title-text>
 		</p-title>
-		<p-body class="block">
-			<p-body-content class="block w-full m-4 pr-8 text-sm">{{content || ''}}</p-body-content>
-			<p-body-clicks class="w-full pt-2 pl-8 flex flex-row-reverse gap-2">
+		<p-body>
+			<p-body-content>{{content || ''}}</p-body-content>
+			<p-body-clicks>
 				<Click v-if="button3 && button3.text" tabindex="1403" :reverse="brop(button3.reverse)"
 					:text="button3.text" :color="attrColorTop"
 					@click="atClick(button3.value)"
@@ -225,19 +225,32 @@ comp-alert
 	&[color=fail]
 		border-color: var(--colorFail)
 
-	comp-click
-		@apply inblock h-8 leading-8 px-4 outline-none focus:font-bold
+	p-title
+		@apply block w-full h-6 select-none
 
-		&[color=okay]
-			background-color: var(--colorOkay)
-		&[color=fail]
-			background-color: var(--colorFail)
+		p-title-text
+			@apply inblock elli text-lg leading-6 px-1
 
-		&[reverse]
-			@apply border border-gray-300
-			background-color: var(--colorBackGround)
-			color: var(--colorText)
+	p-body
+		@apply block
 
-p-button
-	@apply w-16 h-7 ml-2 leading-7 bg-green-500 inline-block align-top rounded-sm cursor-pointer text-sm text-center overflow-hidden outline-none select-none hover:shadow-md filter hover:brightness-110 focus:brightness-125
+		p-body-content
+			@apply block w-full m-4 pr-8 text-sm
+
+		p-body-clicks
+			@apply w-full pt-2 pl-8 flex flex-row-reverse gap-2
+
+
+		comp-click
+			@apply inblock h-8 leading-8 px-4 outline-none focus:font-bold
+
+			&[color=okay]
+				background-color: var(--colorOkay)
+			&[color=fail]
+				background-color: var(--colorFail)
+
+			&[reverse]
+				@apply border border-gray-300
+				background-color: var(--colorBackGround)
+				color: var(--colorText)
 </style>
