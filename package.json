@@ -32,7 +32,7 @@
 		"@nuogz/css-var": "^2.0.0",
 		"@nuogz/pangu": "^2.2.0",
 		"@nuogz/utility": "^1.2.0",
-		"@nuogz/vue-components": "^1.1.0",
+		"@nuogz/vue-components": "^1.2.0",
 		"@vitejs/plugin-vue": "^3.0.3",
 		"autoprefixer": "^10.4.8",
 		"eslint": "^8.22.0",
