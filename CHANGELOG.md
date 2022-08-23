@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.1.0 - 2022.08.24 03
+* improve codes of position calculation
+* recheck all dependencies
+* remove more config files. This configs depends on host now
+
+
 ## v1.0.1 - 2022.08.23 15
 * move inline CSS to `<style>` block
 

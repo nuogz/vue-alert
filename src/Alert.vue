@@ -41,13 +41,12 @@
 </template>
 
 <script>
-	import { computed, createApp, nextTick, ref, watch } from 'vue';
+	import { computed, createApp, ref, watch } from 'vue';
 
 	import { brop } from '@nuogz/utility';
 	import { Click } from '@nuogz/vue-components';
 
 	import componentSelf from './Alert.vue';
-
 
 
 
@@ -156,12 +155,12 @@
 
 	watch(show, now => {
 		if(now) {
-			nextTick(() => {
+			setTimeout(() => {
 				top.value = (window.innerHeight - win.value.clientHeight) / 2;
 				left.value = (window.innerWidth - win.value.clientWidth) / 2;
 
-				nextTick(() => win.value.querySelector('comp-click:last-child').focus());
-			});
+				setTimeout(() => win.value.querySelector('comp-click:last-child').focus(), 0);
+			}, 0);
 
 			showMask.value = true;
 		}
