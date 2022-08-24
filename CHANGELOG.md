@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.1.1 - 2022.08.24 15
+* move main file to `src/Alert.vue` from `src/index.vue`
+* improve package info
+* improve `.eslintrc.cjs` for lint better
+
+
 ## v1.1.0 - 2022.08.24 03
 * improve codes of position calculation
 * recheck all dependencies
