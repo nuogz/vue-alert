@@ -46,7 +46,7 @@
 	import { brop } from '@nuogz/utility';
 	import { Click } from '@nuogz/vue-components';
 
-	import componentSelf from './Alert.vue';
+	import componentSelf from './index.vue';
 
 
 

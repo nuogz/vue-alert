@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.2 - 2022.08.24 17
+* fix import
+
+
 ## v1.1.1 - 2022.08.24 15
 * move main file to `src/Alert.vue` from `src/index.vue`
 * improve package info
