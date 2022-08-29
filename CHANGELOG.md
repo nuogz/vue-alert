@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.3 - 2022.08.30 01
+* bump up dependencies
+
+
 ## v1.1.2 - 2022.08.24 17
 * fix import
 
