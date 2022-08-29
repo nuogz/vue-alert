@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@nuogz/utility': ^1.3.1
-  '@nuogz/vue-components': ^1.3.3
+  '@nuogz/vue-components': ^1.3.4
   '@vitejs/plugin-vue': ^3.0.3
   autoprefixer: ^10.4.8
   eslint: ^8.23.0
@@ -15,7 +15,7 @@ specifiers:
 
 devDependencies:
   '@nuogz/utility': 1.3.1
-  '@nuogz/vue-components': 1.3.3_ektl4ogtkyj7rbm6lp7c6rnmdi
+  '@nuogz/vue-components': 1.3.4_ektl4ogtkyj7rbm6lp7c6rnmdi
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.37
   autoprefixer: 10.4.8_postcss@8.4.16
   eslint: 8.23.0
@@ -133,8 +133,8 @@ packages:
       json-bigint: 1.0.0
     dev: true
 
-  /@nuogz/vue-components/1.3.3_ektl4ogtkyj7rbm6lp7c6rnmdi:
-    resolution: {integrity: sha512-XmFy58Iltz2/sGJVsUCEAqT9/3cbIHvSCxvDJwuXaUpJAuvlHdh4JEvjzlwCOaShBjIGC+gkYYj0X5TySNmtdg==}
+  /@nuogz/vue-components/1.3.4_ektl4ogtkyj7rbm6lp7c6rnmdi:
+    resolution: {integrity: sha512-qaAAOG7QAD5x3CIvnlFckI5dTbmb0Dudx9C6XfQG6pJRflP5Tcictlhr3x6IYFKFRY7GMdN1uTyqs7L4RBh9Fg==}
     engines: {node: '>=14.18.1'}
     peerDependencies:
       '@fortawesome/free-solid-svg-icons': ^6
