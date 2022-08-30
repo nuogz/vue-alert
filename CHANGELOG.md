@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.5 - 2022.08.30 10
+* bump up dependencies
+
+
 ## v1.1.4 - 2022.08.30 02
 * fix `package.files`
 * bump up dependencies
