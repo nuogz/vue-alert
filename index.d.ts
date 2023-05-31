@@ -18,6 +18,6 @@ export { $quest3 } from './src/index.vue.js';
 export { $okay } from './src/index.vue.js';
 export { $fail } from './src/index.vue.js';
 
-export { install as installAlert } from './src/index.vue.js';
+export { install } from './src/index.vue.js';
 
 export { ButtonInfo } from './src/index.vue.js';

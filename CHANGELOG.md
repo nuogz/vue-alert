@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.2.1 - 2023.05.31 15
+* fix `install` export
+
+
 ## v1.2.0 - 2023.05.31 15
 * add declaration files and improve inline jsdoc
 * use eslint flat config, and related config udpate
