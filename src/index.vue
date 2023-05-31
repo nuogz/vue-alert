@@ -2,8 +2,8 @@
 	<comp-mask v-show="showMask" />
 	<comp-alert v-show="show" ref="win"
 		:style="{
-			top: top+'px',
-			left: left+'px',
+			top: top + 'px',
+			left: left + 'px',
 			borderColor: styleColorTop,
 		}"
 		:color="attrColorTop"
@@ -12,10 +12,10 @@
 			:style="{ cursor: moving ? 'move' : 'default' }"
 			@mousemove="onMouseMove" @mousedown="onMoveStart" @mouseup="onMoveEnd" @mouseout="onMoveEnd"
 		>
-			<p-title-text>{{title || '提示'}}</p-title-text>
+			<p-title-text>{{ title || '提示' }}</p-title-text>
 		</p-title>
 		<p-body>
-			<p-body-content>{{content || ''}}</p-body-content>
+			<p-body-content>{{ content || '' }}</p-body-content>
 			<p-body-clicks>
 				<Click v-if="button3 && button3.text" tabindex="1403" :reverse="brop(button3.reverse)"
 					:text="button3.text" :color="attrColorTop"
@@ -50,30 +50,54 @@
 
 
 
-	export const title = ref(null);
-	export const content = ref(null);
+	/**
+	 * @typedef {Object} ButtonInfo
+	 * @property {string} text
+	 * @property {any} value
+	 * @property {boolean} [reverse=true]
+	 */
+
+	/** @type {import('vue').Ref<string>} */
+	export const title = ref('');
+	/** @type {import('vue').Ref<string>} */
+	export const content = ref('');
 
 	export const cancel = ref(0);
-	export const button1 = ref({ text: null, value: null, reverse: true });
-	export const button2 = ref({ text: null, value: null, reverse: true });
-	export const button3 = ref({ text: null, value: null, reverse: true });
+	/** @type {import('vue').Ref<ButtonInfo>} */
+	export const button1 = ref({ text: '', value: null, reverse: true });
+	/** @type {import('vue').Ref<ButtonInfo>} */
+	export const button2 = ref({ text: '', value: null, reverse: true });
+	/** @type {import('vue').Ref<ButtonInfo>} */
+	export const button3 = ref({ text: '', value: null, reverse: true });
 
+	/** @type {import('vue').Ref<string>} */
 	export const colorTop = ref(null);
 
+	/** @type {import('vue').Ref<boolean>} */
 	export const show = ref(false);
+	/** @type {import('vue').Ref<Function>} */
 	export const waiter = ref(null);
 
 
-	const showBox = (content_ = '', title_ = '提示', cancel_ = 0, button1_ = {}, button2_ = {}, button3_ = {}, colorTop_) => {
-		title.value = String(title_);
-		content.value = String(content_);
+	/**
+	 * @param {string} [$content='']
+	 * @param {string} [$title='']
+	 * @param {number} [$cancel=0]
+	 * @param {ButtonInfo} [$button1]
+	 * @param {ButtonInfo} [$button2]
+	 * @param {ButtonInfo} [$button3]
+	 * @param {string} [$colorTop]
+	 */
+	const showBox = ($content = '', $title = '', $cancel = 0, $button1 = {}, $button2 = {}, $button3 = {}, $colorTop) => {
+		title.value = String($title);
+		content.value = String($content);
 
-		button1.value = button1_;
-		button2.value = button2_;
-		button3.value = button3_;
-		cancel.value = cancel_;
+		button1.value = $button1;
+		button2.value = $button2;
+		button3.value = $button3;
+		cancel.value = $cancel;
 
-		colorTop.value = colorTop_;
+		colorTop.value = $colorTop;
 
 		return new Promise(resolve => {
 			waiter.value = resolve;
@@ -81,6 +105,15 @@
 		});
 	};
 
+	/**
+	 * @param {string} [content='']
+	 * @param {string} [title='提示']
+	 * @param {ButtonInfo} [button1={ text: '确定', value: true }]
+	 * @param {ButtonInfo} [button2]
+	 * @param {ButtonInfo} [button3]
+	 * @param {number} [cancel=1]
+	 * @param {string} [colorTop]
+	 */
 	export const $alert = (content, title = '提示',
 		button1 = { text: '确定', value: true },
 		button2,
@@ -91,6 +124,16 @@
 		return showBox(content, title, cancel, button1, button2, button3, colorTop);
 	};
 
+
+	/**
+	 * @param {string} [content='']
+	 * @param {string} [title='提示']
+	 * @param {ButtonInfo} [button1={ text: '是', value: true }]
+	 * @param {ButtonInfo} [button2={ text: '否', value: false, reverse: true }]
+	 * @param {ButtonInfo} [button3]
+	 * @param {number} [cancel=2]
+	 * @param {string} [colorTop]
+	 */
 	export const $quest = (content, title = '提示',
 		button1 = { text: '是', value: true },
 		button2 = { text: '否', value: false, reverse: true },
@@ -101,6 +144,16 @@
 		return showBox(content, title, cancel, button1, button2, button3, colorTop);
 	};
 
+
+	/**
+	 * @param {string} [content='']
+	 * @param {string} [title='提示']
+	 * @param {ButtonInfo} [button1={ text: '是', value: true }]
+	 * @param {ButtonInfo} [button2={ text: '否', value: false, }]
+	 * @param {ButtonInfo} [button3={ text: '取消', value: 'cancel', reverse: true }]
+	 * @param {number} [cancel=3]
+	 * @param {string} [colorTop]
+	 */
 	export const $quest3 = (content, title = '提示',
 		button1 = { text: '是', value: true },
 		button2 = { text: '否', value: false, },
@@ -111,12 +164,33 @@
 		return showBox(content, title, cancel, button1, button2, button3, colorTop);
 	};
 
+
+	/**
+	 * @param {string} [action='操作']
+	 * @param {string} [title='成功']
+	 * @param {string} [next]
+	 * @param {ButtonInfo} [button1={ text: '确定', value: true }]
+	 * @param {ButtonInfo} [button2]
+	 * @param {ButtonInfo} [button3]
+	 * @param {number} [cancel=0]
+	 * @param {string} [colorTop='$okay']
+	 */
 	export const $okay = (action = '操作', title = '成功', next, button1 = { text: '确定', value: true }, button2, button3, cancel = 0, colorTop = '$okay') => {
 		const content = `${action}成功${next ? `。${next}` : ''}`;
 
 		return showBox(content, title, cancel, button1, button2, button3, colorTop);
 	};
 
+	/**
+	 * @param {string} [action='操作']
+	 * @param {string} [title='失败']
+	 * @param {Error|string} [error]
+	 * @param {ButtonInfo} [button1={ text: '确定', value: true }]
+	 * @param {ButtonInfo} [button2]
+	 * @param {ButtonInfo} [button3]
+	 * @param {number} [cancel=0]
+	 * @param {string} [colorTop='$fail']
+	 */
 	export const $fail = (action = '操作', error, title = '失败', button1 = { text: '确定', value: true }, button2, button3, cancel = 0, colorTop = '$fail') => {
 		const content = (`${action}失败，原因：${error?.message ?? error ?? '未知'}`);
 
@@ -124,6 +198,10 @@
 	};
 
 
+	/**
+	 * @param {import('vue').App} app
+	 * @returns {Promise<void>}
+	 */
 	export const install = async app => {
 		const appAlert = createApp(componentSelf);
 

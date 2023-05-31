@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.2.0 - 2023.05.31 15
+* add declaration files and improve inline jsdoc
+* use eslint flat config, and related config udpate
+	* use `eslint.config.js` instead `eslintrc.cjs`
+* update recommanded extensions
+	* use `Volar` instead `Vetur`
+
+
 ## v1.1.5 - 2022.08.30 10
 * bump up dependencies
 
