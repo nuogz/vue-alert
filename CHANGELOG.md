@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.3.0 - 2023.08.30 10
+* (break) renew color-related CSS variables
+* bump up dependencies
+
+
 ## v1.2.1 - 2023.05.31 15
 * fix `install` export
 

@@ -17,20 +17,20 @@
 		<p-body>
 			<p-body-content>{{ content || '' }}</p-body-content>
 			<p-body-clicks>
-				<Click v-if="button3 && button3.text" tabindex="1403" :reverse="brop(button3.reverse)"
-					:text="button3.text" :color="attrColorTop"
+				<Click v-if="button3 && button3.text" tabindex="1403" :white="brop(button3.reverse)"
+					:text="button3.text" :color="parseAttrColor(button3.color)"
 					@click="atClick(button3.value)"
 					@keydown.enter.space.prevent="atClick(button3.value)"
 					@keydown.esc.prevent="atClick(button1.value, true)"
 				/>
-				<Click v-if="button2 && button2.text" tabindex="1402" :reverse="brop(button2.reverse)"
-					:text="button2.text" :color="attrColorTop"
+				<Click v-if="button2 && button2.text" tabindex="1402" :white="brop(button2.reverse)"
+					:text="button2.text" :color="parseAttrColor(button2.color)"
 					@click="atClick(button2.value)"
 					@keydown.enter.space.prevent="atClick(button2.value)"
 					@keydown.esc.prevent="atClick(button1.value, true)"
 				/>
-				<Click v-if="button1 && button1.text" tabindex="1401" :reverse="brop(button1.reverse)"
-					:text="button1.text" :color="attrColorTop"
+				<Click v-if="button1 && button1.text" tabindex="1401" :white="brop(button1.reverse)"
+					:text="button1.text" :color="parseAttrColor(button1.color)"
 					@click="atClick(button1.value)"
 					@keydown.enter.space.prevent="atClick(button1.value)"
 					@keydown.esc.prevent="atClick(button1.value, true)"
@@ -55,6 +55,7 @@
 	 * @property {string} text
 	 * @property {any} value
 	 * @property {boolean} [reverse=true]
+	 * @property {string} [color]
 	 */
 
 	/** @type {import('vue').Ref<string>} */
@@ -216,13 +217,21 @@
 </script>
 
 <script setup>
+	import './index.pcss';
+
+
+
 	const moving = ref(false);
 	const top = ref(0);
 	const left = ref(0);
 
 
 	const styleColorTop = computed(() => colorTop.value?.startsWith('$') ? false : (colorTop.value ?? false));
-	const attrColorTop = computed(() => colorTop.value?.startsWith('$') ? colorTop.value.replace('$', '').toLowerCase() : null);
+
+	const parseAttrColor = color => color?.startsWith('$') ? color.replace('$', '').toLowerCase() : null;
+	const attrColorTop = computed(() => parseAttrColor(colorTop.value));
+
+
 
 
 	const showMask = ref(false);
@@ -288,19 +297,18 @@
 <style lang="sass" scoped>
 comp-mask
 	@apply fixed top-0 bottom-0 left-0 right-0 z-30
-	background: rgba(192, 192, 192, 0.4)
+	background: #0000001a
 
 comp-alert
-	@apply fixed p-2 overflow-hidden shadow-2xl rounded-sm z-40 border-t-8
+	@apply fixed p-2 overflow-hidden shadow-2xl rounded-sm z-40 border-t-8 border-[var(--cMain)]
 	min-width: 160px
 	min-height: 90px
-	background-color: var(--colorBackground)
-	border-color: var(--colorMain)
+	background-color: color-mix(in srgb, var(--cBack) 90%, white)
 
 	&[color=okay]
-		border-color: var(--colorOkay)
+		@apply border-[var(--cOkay)]
 	&[color=fail]
-		border-color: var(--colorFail)
+		@apply border-[var(--cFail)]
 
 	p-title
 		@apply block w-full h-6 select-none
@@ -319,15 +327,14 @@ comp-alert
 
 
 		comp-click
-			@apply inblock h-8 leading-8 px-4 outline-none focus:font-bold
+			@apply inblock h-8 leading-8 px-4 outline-none
 
 			&[color=okay]
-				background-color: var(--colorOkay)
+				@apply bg-[var(--cOkay)]
+				color: var(--cTextOkay, --cTextBack)
 			&[color=fail]
-				background-color: var(--colorFail)
-
-			&[reverse]
-				@apply border border-gray-300
-				background-color: var(--colorBackGround)
-				color: var(--colorText)
+				@apply bg-[var(--cFail)]
+				color: var(--cTextFail, --cTextBack)
+			&[white]
+				@apply lead-b2-8
 </style>
