@@ -3,6 +3,7 @@
  * @property {string} text
  * @property {any} value
  * @property {boolean} [reverse=true]
+ * @property {string} [color]
  */
 /** @type {import('vue').Ref<string>} */
 export const title: import('vue').Ref<string>;
@@ -31,4 +32,5 @@ export type ButtonInfo = {
     text: string;
     value: any;
     reverse?: boolean;
+    color?: string;
 };

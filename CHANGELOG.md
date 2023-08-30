@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.3.1 - 2023.08.30 10
+* fix jsdoc
+
+
 ## v1.3.0 - 2023.08.30 10
 * (break) renew color-related CSS variables
 * bump up dependencies
