@@ -232,8 +232,6 @@
 	const attrColorTop = computed(() => parseAttrColor(colorTop.value));
 
 
-
-
 	const showMask = ref(false);
 
 
@@ -320,7 +318,7 @@ comp-alert
 		@apply block
 
 		p-body-content
-			@apply block w-full m-4 pr-8 text-sm
+			@apply block w-full m-4 pr-8 text-sm whitespace-pre
 
 		p-body-clicks
 			@apply w-full pt-2 pl-8 flex flex-row-reverse gap-2
