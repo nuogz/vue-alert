@@ -295,7 +295,7 @@
 <style lang="sass" scoped>
 comp-mask
 	@apply fixed top-0 bottom-0 left-0 right-0 z-30
-	background: #0000001a
+	background: #00000040
 
 comp-alert
 	@apply fixed p-2 overflow-hidden shadow-2xl rounded-sm z-40 border-t-8 border-[var(--cMain)]

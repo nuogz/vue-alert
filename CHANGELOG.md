@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.3.3 - 2023.12.04 16
+* make background mask more darker
+* tweak some enviroment
+* bump up dependencies
+
+
 ## v1.3.2 - 2023.09.07 08
 * content box support change line
 * bump up dependencies

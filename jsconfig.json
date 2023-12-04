@@ -3,15 +3,15 @@
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"target": "esnext",
+		"experimentalDecorators": true,
 		"strict": true,
 		"allowJs": true,
-		"jsx": "preserve",
-		"experimentalDecorators": true,
+		"jsx": "preserve"
 	},
 	"include": [
 		"index.js",
 		"src/**/*.js",
-		"src/**/*.vue",
+		"src/**/*.vue"
 	],
 	"exclude": [
 		"node_modules"
