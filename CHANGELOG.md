@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.4.0 - 2023.12.06 17
+* tweak enviroment
+* bump up dependencies
+
+
 ## v1.3.3 - 2023.12.04 16
 * make background mask more darker
 * tweak some enviroment
