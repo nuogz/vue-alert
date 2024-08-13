@@ -1,12 +1,12 @@
 {
 	"name": "@nuogz/vue-alert",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Alert and notify component based on Vue.js 3.x",
 	"author": "DanoR",
 	"license": "LGPL-3.0-or-later",
 	"repository": {
 		"type": "git",
-		"url": "github:nuogz/vue-alert"
+		"url": "git+https://github.com/nuogz/vue-alert.git"
 	},
 	"private": false,
 	"type": "module",
@@ -16,30 +16,40 @@
 	],
 	"sideEffects": false,
 	"engines": {
-		"node": ">=14.18.1"
+		"node": ">=20"
 	},
 	"main": "./index.js",
 	"files": [
 		"index.js",
+		"types/**",
 		"src/**",
 		"**/*.d.ts"
 	],
-	"typings": "./index.d.ts",
+	"typings": "./types/index.d.ts",
+	"scripts": {
+		"declare": "vue-tsc"
+	},
 	"devDependencies": {
+		"@eslint/js": "^9.9.0",
+		"@fortawesome/fontawesome-svg-core": "^6.6.0",
 		"@nuogz/utility": "^1.8.1",
-		"@nuogz/vue-components": "^1.12.0",
-		"autoprefixer": "^10.4.16",
-		"eslint": "^8.55.0",
-		"eslint-plugin-vue": "^9.19.2",
-		"postcss": "^8.4.32",
-		"sass": "^1.69.5",
-		"tailwindcss": "^3.3.6",
-		"vue": "^3.3.10",
-		"vue-eslint-parser": "^9.3.2"
+		"@nuogz/vue-components": "^1.12.2",
+		"@stylistic/eslint-plugin-js": "^2.6.2",
+		"autoprefixer": "^10.4.20",
+		"eslint": "^9.9.0",
+		"eslint-plugin-vue": "^9.27.0",
+		"globals": "^15.9.0",
+		"postcss": "^8.4.41",
+		"postcss-sass": "^0.5.0",
+		"sass": "^1.77.8",
+		"tailwindcss": "^3.4.9",
+		"vue": "^3.4.37",
+		"vue-eslint-parser": "^9.4.3",
+		"vue-tsc": "^2.0.29"
 	},
 	"peerDependencies": {
 		"@nuogz/utility": "^1.8.1",
-		"@nuogz/vue-components": "^1.12.0",
+		"@nuogz/vue-components": "^1.12.2",
 		"vue": "^3"
 	}
 }

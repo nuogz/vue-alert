@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.5.0 - 2024.08.13 14
+* refactor!: rename some vue-releated exports with prefix `$`
+* style: tweak codes
+* docs: better types
+* chore: improve develop environments
+* deps: bump up dependencies
+
+
 ## v1.4.0 - 2023.12.06 17
 * tweak enviroment
 * bump up dependencies
