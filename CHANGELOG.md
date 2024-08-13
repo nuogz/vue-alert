@@ -1,7 +1,13 @@
 # CHANGELOG
 
+## v1.6.0 - 2024.08.13 16
+* refactor!: rename export `$showing` from `$show`
+* refactor!: rename export `$waiter` from `$resolver`
+* refactor!: rename vue Ref exports with prefix `$`
+* refactor: use the latest `HTMLDialogElement` as the core of alert element
+
+
 ## v1.5.0 - 2024.08.13 14
-* refactor!: rename some vue-releated exports with prefix `$`
 * style: tweak codes
 * docs: better types
 * chore: improve develop environments

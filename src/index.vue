@@ -1,22 +1,11 @@
 <template>
-	<comp-mask v-show="$showMask" />
-	<comp-alert v-show="$show" ref="$domAlert"
-		:style="{
-			top: $top + 'px',
-			left: $left + 'px',
-			borderColor: $styleColorTop,
-		}"
-		:color="$attrColorTop"
-	>
-		<p-title
-			:style="{ cursor: $moving ? 'move' : 'default' }"
-			@mousemove="onMouseMove" @mousedown="onMoveStart" @mouseup="onMoveEnd" @mouseout="onMoveEnd"
-		>
+	<dialog ref="$dialogAlert" :style="{ borderColor: $styleColorTop }" :color="$attrColorTop">
+		<p-title @mousedown.left.prevent="onMoveStart">
 			<p-title-text>{{ $title || '提示' }}</p-title-text>
 		</p-title>
 		<p-body>
-			<p-body-content>{{ $content || '' }}</p-body-content>
-			<p-body-clicks>
+			<p-content>{{ $content || '' }}</p-content>
+			<p-clicks>
 				<Click v-if="$button3 && $button3.text" tabindex="1403" :white="brop($button3.reverse)"
 					:text="$button3.text" :color="parseAttrColor($button3.color)"
 					@click="atClick($button3.value)"
@@ -35,9 +24,9 @@
 					@keydown.enter.space.prevent="atClick($button1.value)"
 					@keydown.esc.prevent="atClick($button1.value, true)"
 				/>
-			</p-body-clicks>
+			</p-clicks>
 		</p-body>
-	</comp-alert>
+	</dialog>
 </template>
 
 <script>
@@ -46,7 +35,7 @@ import { computed, createApp, ref, watch } from 'vue';
 import { brop } from '@nuogz/utility';
 import { Click } from '@nuogz/vue-components';
 
-import componentSelf from './index.vue';
+import Self from './index.vue';
 
 
 
@@ -57,6 +46,7 @@ import componentSelf from './index.vue';
  * @property {boolean} [reverse=true]
  * @property {string} [color]
  */
+
 
 /** @type {import('vue').Ref<string>} */
 export const $title = ref('');
@@ -74,10 +64,12 @@ export const $button3 = ref({ text: '', value: null, reverse: true });
 /** @type {import('vue').Ref<string>} */
 export const $colorTop = ref(null);
 
+
 /** @type {import('vue').Ref<boolean>} */
-export const $show = ref(false);
+export const $showing = ref(false);
 /** @type {import('vue').Ref<Function>} */
-export const $waiter = ref(null);
+export const $resolver = ref(null);
+
 
 
 /**
@@ -101,8 +93,8 @@ const showBox = (content = '', title = '', cancel = 0, button1 = {}, button2 = {
 	$colorTop.value = colorTop;
 
 	return new Promise(resolver => {
-		$waiter.value = resolver;
-		$show.value = true;
+		$resolver.value = resolver;
+		$showing.value = true;
 	});
 };
 
@@ -203,11 +195,11 @@ export const $fail = (action = '操作', error, title = '失败', button1 = { te
  * @param {import('vue').App} app
  * @returns {Promise<void>}
  */
-export const install = async app => {
-	const appAlert = createApp(componentSelf);
+export const install = async (app, idElement) => {
+	const appAlert = createApp(Self);
 
 	const domAlert = document.createElement('div');
-	domAlert.id = 'alert';
+	domAlert.id = idElement || 'vue-alert';
 
 	appAlert.mixin({ data() { return { brop }; } });
 
@@ -221,34 +213,25 @@ import './index.pcss';
 
 
 
-const $moving = ref(false);
-const $top = ref(0);
-const $left = ref(0);
-
-
 const $styleColorTop = computed(() => $colorTop.value?.startsWith('$') ? false : ($colorTop.value ?? false));
 
 const parseAttrColor = color => color?.startsWith('$') ? color.replace('$', '').toLowerCase() : null;
 const $attrColorTop = computed(() => parseAttrColor($colorTop.value));
 
 
-const $showMask = ref(false);
+/** @type {import('vue').Ref<HTMLDialogElement>} */
+const $dialogAlert = ref(null);
 
 
-const $domAlert = ref(null);
+watch($showing, now => {
+	if(!now) { return $dialogAlert.value.close(); }
 
+	top = 0;
+	left = 0;
 
-watch($show, now => {
-	if(now) {
-		setTimeout(() => {
-			$top.value = (window.innerHeight - $domAlert.value.clientHeight) / 2;
-			$left.value = (window.innerWidth - $domAlert.value.clientWidth) / 2;
+	$dialogAlert.value.showModal();
 
-			setTimeout(() => $domAlert.value.querySelector('comp-click:last-child').focus(), 0);
-		}, 0);
-
-		$showMask.value = true;
-	}
+	setTimeout(() => $dialogAlert.value.querySelector('comp-click:last-child').focus(), 0);
 });
 
 
@@ -269,39 +252,55 @@ const atClick = (value, fromCancel = false) => {
 	$button2.value = { text: null, value: null, reverse: true };
 	$button3.value = { text: null, value: null, reverse: true };
 
-	$show.value = false;
-	$showMask.value = false;
 
-	if(typeof $waiter.value == 'function') {
+	$showing.value = false;
+
+	if(typeof $resolver.value == 'function') {
 		try {
-			$waiter.value(value);
+			$resolver.value(value);
 		}
 		finally {
-			$waiter.value = null;
+			$resolver.value = null;
 		}
 	}
 };
 
-const onMouseMove = e => {
-	if(e.buttons == 1) {
-		$top.value += e.movementY;
-		$left.value += e.movementX;
-	}
+
+
+let top = 0;
+let left = 0;
+const onMoveStart = () => {
+	const dialog = $dialogAlert.value;
+
+	dialog.style.cursor = 'move';
+
+	const onMouseMove = event => {
+		dialog.style.top = `${top += event.movementY}px`;
+		dialog.style.left = `${left += event.movementX}px`;
+	};
+	dialog.addEventListener('mousemove', onMouseMove);
+
+
+	const onMouseEnd = () => {
+		dialog.style.cursor = '';
+
+		dialog.removeEventListener('mousemove', onMouseMove);
+		dialog.removeEventListener('mouseup', onMouseEnd);
+		dialog.removeEventListener('mouseout', onMouseEnd);
+	};
+	dialog.addEventListener('mouseup', onMouseEnd);
+	dialog.addEventListener('mouseout', onMouseEnd);
 };
-const onMoveStart = () => $moving.value = true;
-const onMoveEnd = () => $moving.value = false;
 </script>
 
 <style lang="sass" scoped>
-comp-mask
-	@apply fixed top-0 bottom-0 left-0 right-0 z-30
-	background: #00000040
-
-comp-alert
+dialog
 	@apply fixed p-2 overflow-hidden shadow-2xl rounded-sm z-40 border-t-8 border-[var(--cMain)]
 	min-width: 160px
 	min-height: 90px
 	background-color: color-mix(in srgb, var(--cBack) 90%, white)
+	&::backdrop
+		@apply bg-[#00000040]
 
 	&[color=okay]
 		@apply border-[var(--cOkay)]
@@ -317,10 +316,10 @@ comp-alert
 	p-body
 		@apply block
 
-		p-body-content
+		p-content
 			@apply block w-full m-4 pr-8 text-sm whitespace-pre
 
-		p-body-clicks
+		p-clicks
 			@apply w-full pt-2 pl-8 flex flex-row-reverse gap-2
 
 
